@@ -81,7 +81,16 @@ export default class DDP extends TyphonEvents
                this.triggerDefer(message.msg, message);
                break;
 
+            // Subscriptions
             case 'ready':
+               if (Array.isArray(message.subs))
+               {
+                  message.subs.forEach((sub) =>
+                  {
+                     this.triggerDefer(`sub:${message.msg}:${sub}`, message);
+                  });
+               }
+               break;
             case 'nosub':
             case 'added':
             case 'changed':
