@@ -100,11 +100,6 @@ export default class DDP extends TyphonEvents
       return id;
    }
 
-   triggerDefer()
-   {
-      setTimeout(() => { super.trigger(this, ...arguments); }, 0);
-   }
-
    unsub(id)
    {
       this.messageQueue.push({ msg: 'unsub', id });
