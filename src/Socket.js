@@ -19,9 +19,9 @@ export default class Socket extends TyphonEvents
    {
       this.rawSocket = new this.SocketConstructor(this.endpoint);
 
-      this.rawSocket.onopen = () => super.triggerDefer('open');
-      this.rawSocket.onerror = (error) => super.triggerDefer('error', error);
-      this.rawSocket.onclose = () => super.triggerDefer('close');
+      this.rawSocket.onopen = () => { super.triggerDefer('open'); };
+      this.rawSocket.onerror = (error) => { super.triggerDefer('error', error); };
+      this.rawSocket.onclose = () => { super.triggerDefer('close'); };
       this.rawSocket.onmessage = (message) =>
       {
          let object;
