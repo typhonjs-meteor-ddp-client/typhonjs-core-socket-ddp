@@ -1,0 +1,12 @@
+{
+   "entryPoints":
+   [
+      {
+         "inMemoryBuild": true,
+         "formats": ["amd"],
+         "mangle": false,
+         "minify": false,
+         "src": "src/DDP.js"
+      }
+   ]
+}

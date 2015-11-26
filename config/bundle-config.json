@@ -1,0 +1,58 @@
+{
+   "entryPoints":
+   [
+      {
+         "destBaseDir": "./dist",
+         "destFilename": "ddp.js",
+         "formats": ["amd", "cjs"],
+         "mangle": false,
+         "minify": false,
+         "src": "src/DDP.js - [backbone-common] - [ejson] - [underscore]",
+         "extraConfig":
+         {
+            "meta":
+            {
+               "backbone-common": { "build": false },
+               "ejson": { "build": false },
+               "underscore": { "build": false }
+            }
+         }
+      },
+
+      {
+         "destBaseDir": "./dist",
+         "destFilename": "ddp.min.js",
+         "formats": ["amd", "cjs"],
+         "mangle": true,
+         "minify": true,
+         "src": "src/DDP.js - [backbone-common] - [ejson] - [underscore]",
+         "extraConfig":
+         {
+            "meta":
+            {
+               "backbone-common": { "build": false },
+               "ejson": { "build": false },
+               "underscore": { "build": false }
+            }
+         }
+      },
+
+      {
+         "destBaseDir": "./dist",
+         "destFilename": "ddp.js",
+         "formats": ["global"],
+         "mangle": false,
+         "minify": false,
+         "src": "src/DDP.js"
+      },
+
+      {
+         "destBaseDir": "./dist",
+         "destFilename": "ddp.min.js",
+         "formats": ["global"],
+         "mangle": true,
+         "minify": true,
+         "src": "src/DDP.js"
+      }
+   ]
+}
