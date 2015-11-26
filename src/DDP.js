@@ -8,15 +8,6 @@ const RECONNECT_INTERVAL = 10000;
 
 export default class DDP extends TyphonEvents
 {
-   triggerDefer()
-   {
-      const args = arguments;
-      setTimeout(() =>
-      {
-         super.trigger.apply(this, args);
-      }, 0);
-   }
-
    constructor(options)
    {
       super();
@@ -25,36 +16,26 @@ export default class DDP extends TyphonEvents
 
       this.messageQueue = new Queue((message) =>
       {
-         if (this.status === 'connected')
-         {
-            this.socket.send(message);
-            return true;
-         }
-         else
-         {
-            return false;
-         }
+         if (this.status === 'connected') { this.socket.send(message); return true; }
+         else { return false; }
       });
 
-      this.socket = new Socket(options.SocketConstructor, options.endpoint);
+      this.socket = new Socket(options.SocketConstructor, options.endpoint).connect();
+   }
 
+   _init()
+   {
+      // When the socket opens, send the `connect` message to establish the DDP connection.
       this.socket.on('open', () =>
       {
-         // When the socket opens, send the `connect` message
-         // to establish the DDP connection
-         this.socket.send(
-         {
-            msg: 'connect',
-            version: DDP_VERSION,
-            support: [DDP_VERSION]
-         });
+         this.socket.send({ msg: 'connect', version: DDP_VERSION, support: [DDP_VERSION] });
       });
 
       this.socket.on('close', () =>
       {
          this.status = 'disconnected';
          this.messageQueue.empty();
-         this.triggerDefer('disconnected');
+         super.triggerDefer('disconnected');
 
          // Schedule a reconnection
          setTimeout(this.socket.connect.bind(this.socket), RECONNECT_INTERVAL);
@@ -67,7 +48,7 @@ export default class DDP extends TyphonEvents
             case 'connected':
                this.status = 'connected';
                this.messageQueue.process();
-               this.triggerDefer('connected');
+               super.triggerDefer('connected');
                break;
 
             // Reply with a `pong` message to prevent the server from closing the connection.
@@ -78,42 +59,32 @@ export default class DDP extends TyphonEvents
             case 'error':
             case 'result':
             case 'updated':
-               this.triggerDefer(message.msg, message);
+               super.triggerDefer(message.msg, message);
                break;
 
             // Subscriptions
             case 'ready':
+               // Send specific `ready` events with the subscription `id`.
                if (Array.isArray(message.subs))
                {
-                  message.subs.forEach((sub) =>
-                  {
-                     this.triggerDefer(`sub:${message.msg}:${sub}`, message);
-                  });
+                  message.subs.forEach((id) => { super.triggerDefer(`sub:${message.msg}:${id}`, message); });
                }
                break;
             case 'nosub':
             case 'added':
             case 'changed':
             case 'removed':
-               this.triggerDefer(message.msg, message);
+               super.triggerDefer(message.msg, message);
                break;
          }
       });
-
-      this.socket.connect();
    }
 
    method(name, params)
    {
       const id = s_UNIQUE_ID();
 
-      this.messageQueue.push(
-      {
-         msg: 'method',
-         id,
-         name,
-         params
-      });
+      this.messageQueue.push({ msg: 'method', id, name, params });
 
       return id;
    }
@@ -122,32 +93,31 @@ export default class DDP extends TyphonEvents
    {
       const id = s_UNIQUE_ID();
 
-      this.messageQueue.push(
-      {
-         msg: 'sub',
-         id,
-         name,
-         params
-      });
+      this.messageQueue.push({ msg: 'sub', id, name, params });
 
       return id;
    }
 
+   triggerDefer()
+   {
+      setTimeout(() => { super.trigger(this, ...arguments); }, 0);
+   }
+
    unsub(id)
    {
-      this.messageQueue.push(
-      {
-         msg: 'unsub',
-         id
-      });
+      this.messageQueue.push({ msg: 'unsub', id });
 
       return id;
    }
 }
 
+// Private Utility Methods ------------------------------------------------------------------------------------------
+
 let uniqueID = 0;
 
-const s_UNIQUE_ID = () =>
-{
-   return (uniqueID++).toString();
-};
+/**
+ * Returns a unique ID.
+ *
+ * @returns {string}
+ */
+const s_UNIQUE_ID = () => { return (uniqueID++).toString(); };
