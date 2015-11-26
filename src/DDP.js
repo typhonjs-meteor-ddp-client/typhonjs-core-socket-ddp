@@ -21,6 +21,8 @@ export default class DDP extends TyphonEvents
       });
 
       this.socket = new Socket(options.SocketConstructor, options.endpoint).connect();
+
+      this._init();
    }
 
    _init()
