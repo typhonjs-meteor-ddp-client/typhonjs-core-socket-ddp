@@ -105,8 +105,8 @@ export default class DDP extends TyphonEvents
 
       return new Promise((resolve, reject) =>
       {
-         this.once(`sub:ready:${id}`, (msg) => { this.off(`sub:nosub:${id}`); resolve(msg); }, this);
-         this.once(`sub:nosub:${id}`, (msg) => { this.off(`sub:sub:${id}`); reject(msg); }, this);
+         this.once(`sub:ready:${id}`, (msg) => { this.off(`sub:nosub:${id}`, this); resolve(msg); }, this);
+         this.once(`sub:nosub:${id}`, (msg) => { this.off(`sub:sub:${id}`, this); reject(msg); }, this);
       });
    }
 
