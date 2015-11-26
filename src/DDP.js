@@ -73,6 +73,12 @@ export default class DDP extends TyphonEvents
                }
                break;
             case 'nosub':
+               // Send specific `nosub` events with the subscription `id`.
+               if (message.id)
+               {
+                  super.triggerDefer(`sub:${message.msg}:${message.id}`, message);
+               }
+               break;
             case 'added':
             case 'changed':
             case 'removed':
@@ -97,7 +103,11 @@ export default class DDP extends TyphonEvents
 
       this.messageQueue.push({ msg: 'sub', id, name, params });
 
-      return id;
+      return new Promise((resolve, reject) =>
+      {
+         this.once(`sub:ready:${id}`, (msg) => { this.off(`sub:nosub:${id}`); resolve(msg); }, this);
+         this.once(`sub:nosub:${id}`, (msg) => { this.off(`sub:sub:${id}`); reject(msg); }, this);
+      });
    }
 
    unsub(id)
