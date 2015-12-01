@@ -36,6 +36,12 @@ export default class Socket extends TyphonEvents
          try { object = JSON.parse(message.data); }
          catch(ignore) { return; /* ignore */ }
 
+         // If there is an attached socket intercept function then invoke it.
+         if (this._socketInterceptFunction)
+         {
+            this._socketInterceptFunction(s_STR_EVENT_MESSAGE_IN, message.data, object);
+         }
+
          // Outside the try-catch block as it must only catch JSON parsing
          // errors, not errors that may occur inside a `message:in` event handler.
          super.triggerDefer(s_STR_EVENT_MESSAGE_IN, object);
@@ -50,10 +56,13 @@ export default class Socket extends TyphonEvents
    {
       const message = JSON.stringify(object);
 
-      this.rawSocket.send(message);
+      // If there is an attached socket intercept function then invoke it.
+      if (this._socketInterceptFunction)
+      {
+         this._socketInterceptFunction(s_STR_EVENT_MESSAGE_OUT, message, object);
+      }
 
-      // Emit a copy of the object, as the listener might mutate it.
-      super.triggerDefer(s_STR_EVENT_MESSAGE_OUT, JSON.parse(message));
+      this.rawSocket.send(message);
 
       return this;
    }
