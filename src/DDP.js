@@ -3,9 +3,9 @@ import TyphonEvents  from 'backbone-common/src/TyphonEvents.js';
 import Queue         from './Queue.js';
 import Socket        from './Socket.js';
 
-const DDP_VERSION = '1';
+const s_DDP_VERSION = '1';
 
-const RECONNECT_INTERVAL = 10000;
+const s_RECONNECT_INTERVAL = 10000;
 
 const s_STR_EVENT_ADDED = 'ddp:added';
 const s_STR_EVENT_CHANGED = 'ddp:changed';
@@ -42,7 +42,7 @@ export default class DDP extends TyphonEvents
       // When the socket opens, send the `connect` message to establish the DDP connection.
       this.socket.on('socket:open', () =>
       {
-         this.socket.send({ msg: 'connect', version: DDP_VERSION, support: [DDP_VERSION] });
+         this.socket.send({ msg: 'connect', version: s_DDP_VERSION, support: [s_DDP_VERSION] });
       });
 
       this.socket.on('socket:close', () =>
@@ -52,7 +52,7 @@ export default class DDP extends TyphonEvents
          super.triggerDefer(s_STR_EVENT_DISCONNECTED);
 
          // Schedule a reconnection
-         setTimeout(this.socket.connect.bind(this.socket), RECONNECT_INTERVAL);
+         setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
       });
 
       this.socket.on('socket:message:in', (message) =>
