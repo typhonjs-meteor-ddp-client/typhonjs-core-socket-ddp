@@ -1,5 +1,11 @@
 import TyphonEvents from 'backbone-common/src/TyphonEvents.js';
 
+const s_STR_EVENT_CLOSE = 'socket:close';
+const s_STR_EVENT_ERROR = 'socket:error';
+const s_STR_EVENT_MESSAGE_IN = 'socket:message:in';
+const s_STR_EVENT_MESSAGE_OUT = 'socket:message:out';
+const s_STR_EVENT_SOCKET_OPEN = 'socket:open';
+
 export default class Socket extends TyphonEvents
 {
    constructor(SocketConstructor, endpoint)
@@ -19,9 +25,10 @@ export default class Socket extends TyphonEvents
    {
       this.rawSocket = new this.SocketConstructor(this.endpoint);
 
-      this.rawSocket.onopen = () => { super.triggerDefer('open'); };
-      this.rawSocket.onerror = (error) => { super.triggerDefer('error', error); };
-      this.rawSocket.onclose = () => { super.triggerDefer('close'); };
+      this.rawSocket.onclose = () => { super.triggerDefer(s_STR_EVENT_CLOSE); };
+
+      this.rawSocket.onerror = (error) => { super.triggerDefer(s_STR_EVENT_ERROR, error); };
+
       this.rawSocket.onmessage = (message) =>
       {
          let object;
@@ -31,8 +38,10 @@ export default class Socket extends TyphonEvents
 
          // Outside the try-catch block as it must only catch JSON parsing
          // errors, not errors that may occur inside a `message:in` event handler.
-         super.triggerDefer('message:in', object);
+         super.triggerDefer(s_STR_EVENT_MESSAGE_IN, object);
       };
+
+      this.rawSocket.onopen = () => { super.triggerDefer(s_STR_EVENT_SOCKET_OPEN); };
 
       return this;
    }
@@ -44,7 +53,7 @@ export default class Socket extends TyphonEvents
       this.rawSocket.send(message);
 
       // Emit a copy of the object, as the listener might mutate it.
-      super.triggerDefer('message:out', JSON.parse(message));
+      super.triggerDefer(s_STR_EVENT_MESSAGE_OUT, JSON.parse(message));
 
       return this;
    }
