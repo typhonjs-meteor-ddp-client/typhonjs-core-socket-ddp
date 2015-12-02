@@ -1,7 +1,9 @@
+'use strict';
+
 import _             from 'underscore';
-import TyphonEvents  from 'backbone-common/src/TyphonEvents.js';
-import Queue         from './Queue.js';
-import Socket        from './Socket.js';
+import TyphonEvents  from 'typhonjs-backbone-common/src/TyphonEvents.js';
+import Queue         from 'typhonjs-core-socket/src/core/Queue.js';
+import Socket        from 'typhonjs-core-socket/src/core/Socket.js';
 
 const s_DDP_VERSION = '1';
 
@@ -92,8 +94,10 @@ export default class DDP extends TyphonEvents
                // Send specific `ready` events with the subscription `id`.
                if (Array.isArray(message.subs))
                {
-                  message.subs.forEach((id) => { super.triggerDefer(`${s_STR_EVENT_READY}${id}`,
-                   _.extend({ activeId: id }, message)); });
+                  message.subs.forEach((id) =>
+                  {
+                     super.triggerDefer(`${s_STR_EVENT_READY}${id}`, _.extend({ activeId: id }, message));
+                  });
                }
                break;
 

@@ -1,25 +1,19 @@
 {
-  "name": "typhonjs-core-ddp",
+  "name": "typhonjs-core-socket-ddp",
   "version": "0.1.0",
-  "homepage": "https://github.com/typhonjs/typhonjs-core-ddp/",
+  "homepage": "https://github.com/typhonjs/typhonjs-core-socket-ddp/",
   "description": "Provides an ES6 Javascript DDP client.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/typhonjs/typhonjs-core-ddp/typhonjs-core-ddp.git"
+    "url": "https://github.com/typhonjs/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git"
   },
   "jspm": {
     "main": "src/DDP.js",
-    "files": [
-      "src/",
-      "CHANGELOG.md",
-      "esdoc.json",
-      "LICENSE",
-      "README.md"
-    ],
     "dependencies": {
-      "backbone-common": "github:typhonjs/typhonjs-core-backbone-common@master",
       "ejson": "npm:ejson@^2.1.2",
+      "typhonjs-backbone-common": "github:typhonjs/typhonjs-core-backbone-common@master",
+      "typhonjs-core-socket": "github:typhonjs/typhonjs-core-socket@master",
       "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
@@ -30,8 +24,8 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
-    "jspm": "0.16.14",
-    "typhonjs-config-eslint": "^0.2.0",
+    "jspm": "0.16.15",
+    "typhonjs-config-eslint": "^0.2.1",
     "typhonjs-core-gulptasks": "^0.3.0"
   }
 }

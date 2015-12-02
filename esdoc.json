@@ -1,5 +1,5 @@
 {
-   "title": "typhonjs-core-asteroid-browser",
+   "title": "typhonjs-core-socket-ddp",
    "source": "src",
    "destination": "docs",
    "plugins": [ { "name": "esdoc-plugin-jspm" } ],
