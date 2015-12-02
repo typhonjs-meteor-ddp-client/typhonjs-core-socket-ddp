@@ -129,9 +129,7 @@ export default class DDP extends TyphonEvents
    {
       const id = s_UNIQUE_ID();
 
-      this.messageQueue.push({ msg: 'sub', id, name, params });
-
-      return new Promise((resolve, reject) =>
+      const promise = new Promise((resolve, reject) =>
       {
          this.once(`${s_STR_EVENT_READY}${id}`, (msg) =>
          {
@@ -145,13 +143,25 @@ export default class DDP extends TyphonEvents
             reject(msg);
          }, this);
       });
+
+      this.messageQueue.push({ msg: 'sub', id, name, params });
+
+      return promise;
    }
 
    unsub(id)
    {
+      const promise = new Promise((resolve) =>
+      {
+         this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =>
+         {
+            resolve(msg);
+         }, this);
+      });
+
       this.messageQueue.push({ msg: 'unsub', id });
 
-      return id;
+      return promise;
    }
 }
 
