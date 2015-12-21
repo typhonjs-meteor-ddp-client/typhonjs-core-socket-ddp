@@ -39,8 +39,10 @@ export default class DDP extends TyphonEvents
     * Instantiates the DDP protocol handler.
     *
     * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -> setSocketOptions
+    * @param {boolean}  autoConnect - Indicates that DDP will attempt to connect on construction.
+    * @param {boolean}  autoReconnect - Indicates that DDP will attempt to reconnection on connection lost.
     */
-   constructor(socketOptions)
+   constructor(socketOptions, autoConnect = true, autoReconnect = true)
    {
       super();
 
@@ -60,13 +62,23 @@ export default class DDP extends TyphonEvents
          else { return false; }
       });
 
+      this._params =
+      {
+         autoConnect,
+         autoReconnect,
+         socketOptions
+      };
+
       /**
        * Defines the socket.
        * @type {Object}
        */
-      this.socket = new Socket(socketOptions).connect();
+      this.socket = new Socket(socketOptions);
 
-      this._params = { socketOptions };
+      if (autoConnect)
+      {
+         this.socket.connect();
+      }
 
       this._init();
    }
@@ -79,6 +91,7 @@ export default class DDP extends TyphonEvents
    connect()
    {
       this.socket.connect.bind(this.socket);
+      this.socket.connect();
    }
 
    /**
@@ -113,8 +126,11 @@ export default class DDP extends TyphonEvents
          this.messageQueue.empty();
          super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
 
-         // Schedule a reconnection
-         setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
+         if (this._params.autoReconnect)
+         {
+            // Schedule a reconnection
+            setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
+         }
       });
 
       this.socket.on('socket:message:in', (message) =>
