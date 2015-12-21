@@ -86,7 +86,7 @@ export default class DDP extends TyphonEvents
     */
    disconnect()
    {
-      this.socket.close();
+      this.socket.disconnect(...arguments);
 
       this.status = 'disconnected';
 
