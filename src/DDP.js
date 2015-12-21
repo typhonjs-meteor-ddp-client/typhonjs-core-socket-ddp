@@ -1,7 +1,7 @@
 'use strict';
 
 import _             from 'underscore';
-import TyphonEvents  from 'typhonjs-backbone-common/src/TyphonEvents.js';
+import TyphonEvents  from 'typhonjs-core-backbone-common/src/TyphonEvents.js';
 import Queue         from 'typhonjs-core-socket/src/core/Queue.js';
 import Socket        from 'typhonjs-core-socket/src/core/Socket.js';
 

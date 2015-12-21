@@ -12,7 +12,7 @@
     "main": "src/DDP.js",
     "dependencies": {
       "ejson": "npm:ejson@^2.1.2",
-      "typhonjs-backbone-common": "github:typhonjs/typhonjs-core-backbone-common@master",
+      "typhonjs-core-backbone-common": "github:typhonjs/typhonjs-core-backbone-common@master",
       "typhonjs-core-socket": "github:typhonjs/typhonjs-core-socket@master",
       "underscore": "npm:underscore@^1.8.3"
     },
