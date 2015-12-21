@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">typhonjs-core-socket-ddp/src/DDP.js | typhonjs-core-socket-ddp API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/typhonjs/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/src/DDP.js~DDP.html">DDP</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">backbone-es6/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Backbone.js~Backbone.html">Backbone</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Collection.js~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Debug.js~Debug.html">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/History.js~History.html">History</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Model.js~Model.html">Model</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Router.js~Router.html">Router</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/Utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/backbone-es6@master/src/View.js~View.html">View</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-extend">extend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sync">sync</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BackboneProxy">BackboneProxy</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-collection">collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-model">model</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-backbone-common/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-common@master/src/TyphonEvents.js~TyphonEvents.html">TyphonEvents</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-common@master/src/TyphonLoggedEvents.js~TyphonLoggedEvents.html">TyphonLoggedEvents</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-typhonExtend">typhonExtend</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-logging/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-logging@master/src/ConsoleLogger.js~ConsoleLogger.html">ConsoleLogger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-logging@master/src/Logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/core</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/core/Queue.js~Queue.html">Queue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/core/Socket.js~Socket.html">Socket</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/browser</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-utils/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-utils@master/src/MultiMap.js~MultiMap.html">MultiMap</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-utils@master/src/Utils.js~Utils.html">Utils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-btoa">btoa</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">typhonjs-core-socket-ddp/src/DDP.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+
+import _             from &apos;underscore&apos;;
+import TyphonEvents  from &apos;typhonjs-core-backbone-common/src/TyphonEvents.js&apos;;
+import Queue         from &apos;typhonjs-core-socket/src/core/Queue.js&apos;;
+import Socket        from &apos;typhonjs-core-socket/src/core/Socket.js&apos;;
+
+const s_DDP_VERSION = &apos;1&apos;;
+
+const s_RECONNECT_INTERVAL = 10000;
+
+const s_STR_EVENT_ADDED = &apos;ddp:added&apos;;
+const s_STR_EVENT_CHANGED = &apos;ddp:changed&apos;;
+const s_STR_EVENT_CONNECTED = &apos;ddp:connected&apos;;
+const s_STR_EVENT_DISCONNECTED = &apos;ddp:disconnected&apos;;
+const s_STR_EVENT_ERROR = &apos;ddp:error&apos;;
+const s_STR_EVENT_NOSUB = &apos;ddp:sub:nosub:&apos;;
+const s_STR_EVENT_READY = &apos;ddp:sub:ready:&apos;;
+const s_STR_EVENT_REMOVED = &apos;ddp:removed&apos;;
+const s_STR_EVENT_RESULT = &apos;ddp:result&apos;;
+const s_STR_EVENT_UPDATED = &apos;ddp:updated&apos;;
+
+/**
+ * Provides a client side implementation of the DDP (Distributed Data Protocol) which is used by Meteor.
+ *
+ * @see https://www.meteor.com/ddp
+ * @see https://github.com/meteor/meteor/blob/devel/packages/ddp/DDP.md
+ */
+export default class DDP extends TyphonEvents
+{
+   /**
+    * Returns the socket options used by DDP.
+    *
+    * @returns {Object}
+    */
+   get socketOptions() { return this._params.socketOptions; }
+
+   /**
+    * Instantiates the DDP protocol handler.
+    *
+    * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -&gt; setSocketOptions
+    */
+   constructor(socketOptions)
+   {
+      super();
+
+      /**
+       * Defines the current connection status.
+       * @type {string}
+       */
+      this.status = &apos;disconnected&apos;;
+
+      /**
+       * Defines the queue to buffer messages.
+       * @type {Object}
+       */
+      this.messageQueue = new Queue((message) =&gt;
+      {
+         if (this.status === &apos;connected&apos;) { this.socket.send(message); return true; }
+         else { return false; }
+      });
+
+      /**
+       * Defines the socket.
+       * @type {Object}
+       */
+      this.socket = new Socket(socketOptions).connect();
+
+      this._params = { socketOptions };
+
+      this._init();
+   }
+
+   /**
+    * Connects the socket connection.
+    *
+    * Note: A connection is automatically attempted on construction of DDP.
+    */
+   connect()
+   {
+      this.socket.connect.bind(this.socket);
+   }
+
+   /**
+    * Disconnects the socket connection.
+    */
+   disconnect()
+   {
+      this.socket.close();
+
+      this.status = &apos;disconnected&apos;;
+
+      this.messageQueue.empty();
+      super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
+   }
+
+   /**
+    * Initializes all Socket callbacks.
+    *
+    * @private
+    */
+   _init()
+   {
+      // When the socket opens, send the `connect` message to establish the DDP connection.
+      this.socket.on(&apos;socket:open&apos;, () =&gt;
+      {
+         this.socket.send({ msg: &apos;connect&apos;, version: s_DDP_VERSION, support: [s_DDP_VERSION] });
+      });
+
+      this.socket.on(&apos;socket:close&apos;, () =&gt;
+      {
+         this.status = &apos;disconnected&apos;;
+         this.messageQueue.empty();
+         super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
+
+         // Schedule a reconnection
+         setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
+      });
+
+      this.socket.on(&apos;socket:message:in&apos;, (message) =&gt;
+      {
+         switch (message.msg)
+         {
+            case &apos;added&apos;:
+               super.triggerDefer(s_STR_EVENT_ADDED, message);
+               break;
+
+            case &apos;changed&apos;:
+               super.triggerDefer(s_STR_EVENT_CHANGED, message);
+               break;
+
+            case &apos;connected&apos;:
+               this.status = &apos;connected&apos;;
+               this.messageQueue.process();
+               super.triggerDefer(s_STR_EVENT_CONNECTED);
+               break;
+
+            case &apos;error&apos;:
+               super.triggerDefer(s_STR_EVENT_ERROR, message);
+               break;
+
+            case &apos;nosub&apos;:
+               // Send specific `nosub` events with the subscription `id`.
+               if (message.id) { super.triggerDefer(`${s_STR_EVENT_NOSUB}${message.id}`, message); }
+               break;
+
+            // Reply with a `pong` message to prevent the server from closing the connection.
+            case &apos;ping&apos;:
+               this.socket.send({ msg: &apos;pong&apos;, id: message.id });
+               break;
+
+            // Subscriptions
+            case &apos;ready&apos;:
+               // Send specific `ready` events with the subscription `id`.
+               if (Array.isArray(message.subs))
+               {
+                  message.subs.forEach((id) =&gt;
+                  {
+                     super.triggerDefer(`${s_STR_EVENT_READY}${id}`, _.extend({ activeId: id }, message));
+                  });
+               }
+               break;
+
+            case &apos;removed&apos;:
+               super.triggerDefer(s_STR_EVENT_REMOVED, message);
+               break;
+
+            case &apos;result&apos;:
+               super.triggerDefer(s_STR_EVENT_RESULT, message);
+               break;
+
+            case &apos;updated&apos;:
+               super.triggerDefer(s_STR_EVENT_UPDATED, message);
+               break;
+         }
+      });
+   }
+
+   /**
+    * Invokes a remote method on the server.
+    *
+    * @param {string}   name - name of method
+    * @param {object}   params - optional parameters
+    * @returns {string}
+    */
+   method(name, params)
+   {
+      const id = s_UNIQUE_ID();
+
+      this.messageQueue.push({ msg: &apos;method&apos;, id, name, params });
+
+      return id;
+   }
+
+   /**
+    * Sends a subscription request.
+    *
+    * @param {string}   name - name of subscription
+    * @param {object}   params - optional parameters
+    * @returns {Promise}
+    */
+   sub(name, params)
+   {
+      const id = s_UNIQUE_ID();
+
+      const promise = new Promise((resolve, reject) =&gt;
+      {
+         this.once(`${s_STR_EVENT_READY}${id}`, (msg) =&gt;
+         {
+            this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
+            resolve(msg);
+         }, this);
+
+         this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =&gt;
+         {
+            this.off(`${s_STR_EVENT_READY}${id}`, this);
+            reject(msg);
+         }, this);
+      });
+
+      this.messageQueue.push({ msg: &apos;sub&apos;, id, name, params });
+
+      return promise;
+   }
+
+   /**
+    * Sends a unsubscribe request.
+    *
+    * @param {string}   id - id of subscription
+    * @returns {Promise}
+    */
+   unsub(id)
+   {
+      const promise = new Promise((resolve) =&gt;
+      {
+         this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =&gt;
+         {
+            resolve(msg);
+         }, this);
+      });
+
+      this.messageQueue.push({ msg: &apos;unsub&apos;, id });
+
+      return promise;
+   }
+}
+
+// Private Utility Methods ------------------------------------------------------------------------------------------
+
+let uniqueID = 0;
+
+/**
+ * Returns a unique ID.
+ *
+ * @returns {string}
+ */
+const s_UNIQUE_ID = () =&gt; { return (uniqueID++).toString(); };</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

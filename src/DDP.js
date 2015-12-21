@@ -20,25 +20,85 @@ const s_STR_EVENT_REMOVED = 'ddp:removed';
 const s_STR_EVENT_RESULT = 'ddp:result';
 const s_STR_EVENT_UPDATED = 'ddp:updated';
 
+/**
+ * Provides a client side implementation of the DDP (Distributed Data Protocol) which is used by Meteor.
+ *
+ * @see https://www.meteor.com/ddp
+ * @see https://github.com/meteor/meteor/blob/devel/packages/ddp/DDP.md
+ */
 export default class DDP extends TyphonEvents
 {
-   constructor(options)
+   /**
+    * Returns the socket options used by DDP.
+    *
+    * @returns {Object}
+    */
+   get socketOptions() { return this._params.socketOptions; }
+
+   /**
+    * Instantiates the DDP protocol handler.
+    *
+    * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -> setSocketOptions
+    */
+   constructor(socketOptions)
    {
       super();
 
+      /**
+       * Defines the current connection status.
+       * @type {string}
+       */
       this.status = 'disconnected';
 
+      /**
+       * Defines the queue to buffer messages.
+       * @type {Object}
+       */
       this.messageQueue = new Queue((message) =>
       {
          if (this.status === 'connected') { this.socket.send(message); return true; }
          else { return false; }
       });
 
-      this.socket = new Socket(options).connect();
+      /**
+       * Defines the socket.
+       * @type {Object}
+       */
+      this.socket = new Socket(socketOptions).connect();
+
+      this._params = { socketOptions };
 
       this._init();
    }
 
+   /**
+    * Connects the socket connection.
+    *
+    * Note: A connection is automatically attempted on construction of DDP.
+    */
+   connect()
+   {
+      this.socket.connect.bind(this.socket);
+   }
+
+   /**
+    * Disconnects the socket connection.
+    */
+   disconnect()
+   {
+      this.socket.close();
+
+      this.status = 'disconnected';
+
+      this.messageQueue.empty();
+      super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
+   }
+
+   /**
+    * Initializes all Socket callbacks.
+    *
+    * @private
+    */
    _init()
    {
       // When the socket opens, send the `connect` message to establish the DDP connection.
@@ -51,7 +111,7 @@ export default class DDP extends TyphonEvents
       {
          this.status = 'disconnected';
          this.messageQueue.empty();
-         super.triggerDefer(s_STR_EVENT_DISCONNECTED);
+         super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
 
          // Schedule a reconnection
          setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
@@ -116,6 +176,13 @@ export default class DDP extends TyphonEvents
       });
    }
 
+   /**
+    * Invokes a remote method on the server.
+    *
+    * @param {string}   name - name of method
+    * @param {object}   params - optional parameters
+    * @returns {string}
+    */
    method(name, params)
    {
       const id = s_UNIQUE_ID();
@@ -125,6 +192,13 @@ export default class DDP extends TyphonEvents
       return id;
    }
 
+   /**
+    * Sends a subscription request.
+    *
+    * @param {string}   name - name of subscription
+    * @param {object}   params - optional parameters
+    * @returns {Promise}
+    */
    sub(name, params)
    {
       const id = s_UNIQUE_ID();
@@ -149,6 +223,12 @@ export default class DDP extends TyphonEvents
       return promise;
    }
 
+   /**
+    * Sends a unsubscribe request.
+    *
+    * @param {string}   id - id of subscription
+    * @returns {Promise}
+    */
    unsub(id)
    {
       const promise = new Promise((resolve) =>
