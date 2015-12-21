@@ -197,7 +197,7 @@ export default class DDP extends TyphonEvents
             case &apos;connected&apos;:
                this.status = &apos;connected&apos;;
                this.messageQueue.process();
-               super.triggerDefer(s_STR_EVENT_CONNECTED);
+               super.triggerDefer(s_STR_EVENT_CONNECTED, this.socketOptions);
                break;
 
             case &apos;error&apos;:
