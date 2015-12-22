@@ -1,9 +1,9 @@
 'use strict';
 
 import _             from 'underscore';
-import TyphonEvents  from 'typhonjs-core-backbone-common/src/TyphonEvents.js';
-import Queue         from 'typhonjs-core-socket/src/core/Queue.js';
-import Socket        from 'typhonjs-core-socket/src/core/Socket.js';
+import TyphonEvents  from 'typhonjs-core-backbone-events/src/TyphonEvents.js';
+import Queue         from 'typhonjs-core-socket/src/Queue.js';
+import Socket        from 'typhonjs-core-socket/src/Socket.js';
 
 const s_DDP_VERSION = '1';
 
