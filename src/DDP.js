@@ -17,7 +17,7 @@ const s_STR_EVENT_ERROR = 'ddp:error';
 const s_STR_EVENT_NOSUB = 'ddp:sub:nosub:';
 const s_STR_EVENT_READY = 'ddp:sub:ready:';
 const s_STR_EVENT_REMOVED = 'ddp:removed';
-const s_STR_EVENT_RESULT = 'ddp:result';
+const s_STR_EVENT_RESULT = 'ddp:result:';
 const s_STR_EVENT_UPDATED = 'ddp:updated';
 
 /**
@@ -182,7 +182,7 @@ export default class DDP extends TyphonEvents
                break;
 
             case 'result':
-               super.triggerDefer(s_STR_EVENT_RESULT, message);
+               super.triggerDefer(`${s_STR_EVENT_RESULT}${message.id}`, message);
                break;
 
             case 'updated':
@@ -196,16 +196,26 @@ export default class DDP extends TyphonEvents
     * Invokes a remote method on the server.
     *
     * @param {string}   name - name of method
-    * @param {object}   params - optional parameters
-    * @returns {string}
+    * @param {object}   params - optional array of EJSON items (parameters to the method)
+    * @param {object}   randomSeed - optional JSON value (an arbitrary client-determined seed for pseudo-random
+    *                                generators)
+    * @returns {Promise}
     */
-   method(name, params)
+   method(name, params, randomSeed)
    {
       const id = s_UNIQUE_ID();
 
-      this.messageQueue.push({ msg: 'method', id, name, params });
+      const promise = new Promise((resolve, reject) =>
+      {
+         this.once(`${s_STR_EVENT_RESULT}${id}`, (msg) =>
+         {
+            !_.isDefined(msg.error) ? resolve(msg) : reject(msg.error);
+         }, this);
+      });
 
-      return id;
+      this.messageQueue.push({ msg: 'method', id, method: name, params, randomSeed });
+
+      return promise;
    }
 
    /**
