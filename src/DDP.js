@@ -39,10 +39,14 @@ export default class DDP extends TyphonEvents
     * Instantiates the DDP protocol handler.
     *
     * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -> setSocketOptions
-    * @param {boolean}  autoConnect - Indicates that DDP will attempt to connect on construction.
-    * @param {boolean}  autoReconnect - Indicates that DDP will attempt to reconnection on connection lost.
+    * {string}   host - host name / port.
+    * {boolean}  ssl - (optional) Indicates if an SSL connection is requested; default (false).
+    * {object}   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
+    * {boolean}  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
+    * {boolean}  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
+    * {integer}  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
     */
-   constructor(socketOptions, autoConnect = true, autoReconnect = true)
+   constructor(socketOptions = {})
    {
       super();
 
@@ -64,8 +68,8 @@ export default class DDP extends TyphonEvents
 
       this._params =
       {
-         autoConnect,
-         autoReconnect,
+         autoConnect: socketOptions.autoConnect || true,
+         autoReconnect: socketOptions.autoReconnect || true,
          socketOptions
       };
 
@@ -75,7 +79,7 @@ export default class DDP extends TyphonEvents
        */
       this.socket = new Socket(socketOptions);
 
-      if (autoConnect)
+      if (this._params.autoConnect)
       {
          this.socket.connect();
       }
