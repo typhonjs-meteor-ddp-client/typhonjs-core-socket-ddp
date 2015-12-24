@@ -196,7 +196,7 @@ export default class DDP extends TyphonEvents
     * Invokes a remote method on the server.
     *
     * @param {string}   name - name of method
-    * @param {object}   params - optional array of EJSON items (parameters to the method)
+    * @param {Array<*>} params - optional array of EJSON items (parameters to the method)
     * @param {object}   randomSeed - optional JSON value (an arbitrary client-determined seed for pseudo-random
     *                                generators)
     * @returns {Promise}
@@ -209,7 +209,7 @@ export default class DDP extends TyphonEvents
       {
          this.once(`${s_STR_EVENT_RESULT}${id}`, (msg) =>
          {
-            _.isUndefined(msg.error) ? resolve(msg) : reject(msg.error);
+            _.isUndefined(msg.error) ? resolve(msg) : reject(msg);
          }, this);
       });
 
