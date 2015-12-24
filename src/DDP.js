@@ -209,7 +209,7 @@ export default class DDP extends TyphonEvents
       {
          this.once(`${s_STR_EVENT_RESULT}${id}`, (msg) =>
          {
-            !_.isDefined(msg.error) ? resolve(msg) : reject(msg.error);
+            _.isUndefined(msg.error) ? resolve(msg) : reject(msg.error);
          }, this);
       });
 
