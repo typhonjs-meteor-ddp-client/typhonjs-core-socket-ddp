@@ -7,8 +7,6 @@ import Socket        from 'typhonjs-core-socket/src/Socket.js';
 
 const s_DDP_VERSION = '1';
 
-const s_RECONNECT_INTERVAL = 10000;
-
 const s_STR_EVENT_ADDED = 'ddp:added';
 const s_STR_EVENT_CHANGED = 'ddp:changed';
 const s_STR_EVENT_CONNECTED = 'ddp:connected';
@@ -39,12 +37,12 @@ export default class DDP extends TyphonEvents
     * Instantiates the DDP protocol handler.
     *
     * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -> setSocketOptions
-    * {string}   host - host name / port.
-    * {boolean}  ssl - (optional) Indicates if an SSL connection is requested; default (false).
-    * {object}   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
-    * {boolean}  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
-    * {boolean}  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
-    * {integer}  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
+    * (string)   host - host name / port.
+    * (boolean)  ssl - (optional) Indicates if an SSL connection is requested; default (false).
+    * (object)   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
+    * (boolean)  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
+    * (boolean)  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
+    * (integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
     */
    constructor(socketOptions = {})
    {
@@ -68,8 +66,6 @@ export default class DDP extends TyphonEvents
 
       this._params =
       {
-         autoConnect: socketOptions.autoConnect || true,
-         autoReconnect: socketOptions.autoReconnect || true,
          socketOptions
       };
 
@@ -78,11 +74,6 @@ export default class DDP extends TyphonEvents
        * @type {Object}
        */
       this.socket = new Socket(socketOptions);
-
-      if (this._params.autoConnect)
-      {
-         this.socket.connect();
-      }
 
       this._init();
    }
@@ -94,7 +85,6 @@ export default class DDP extends TyphonEvents
     */
    connect()
    {
-      this.socket.connect.bind(this.socket);
       this.socket.connect();
    }
 
@@ -129,12 +119,6 @@ export default class DDP extends TyphonEvents
          this.status = 'disconnected';
          this.messageQueue.empty();
          super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
-
-         if (this._params.autoReconnect)
-         {
-            // Schedule a reconnection
-            setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
-         }
       });
 
       this.socket.on('socket:message:in', (message) =>
