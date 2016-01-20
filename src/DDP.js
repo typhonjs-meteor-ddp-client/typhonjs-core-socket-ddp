@@ -197,8 +197,10 @@ export default class DDP extends TyphonEvents
 
       const promise = new Promise((resolve, reject) =>
       {
+         // Provides a time out to reject request and unregister listeners.
          const timer = setTimeout(() =>
          {
+            this.off(`${s_STR_EVENT_RESULT}${id}`, this);
             reject(`method - id: ${id}; name: ${name} timed out.`);
          }, timeout);
 
@@ -228,8 +230,11 @@ export default class DDP extends TyphonEvents
 
       const promise = new Promise((resolve, reject) =>
       {
+         // Provides a time out to reject request and unregister listeners.
          const timer = setTimeout(() =>
          {
+            this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
+            this.off(`${s_STR_EVENT_READY}${id}`, this);
             reject(`sub - id: ${id}; name: ${name} timed out.`);
          }, timeout);
 
@@ -262,10 +267,12 @@ export default class DDP extends TyphonEvents
     */
    unsub(id, timeout = s_TIMEOUT)
    {
-      const promise = new Promise((resolve) =>
+      const promise = new Promise((resolve, reject) =>
       {
+         // Provides a time out to reject request and unregister listeners.
          const timer = setTimeout(() =>
          {
+            this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
             reject(`unsub - id: ${id} timed out.`);
          }, timeout);
 
