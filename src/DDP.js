@@ -6,6 +6,7 @@ import Queue         from 'typhonjs-core-socket/src/Queue.js';
 import Socket        from 'typhonjs-core-socket/src/Socket.js';
 
 const s_DDP_VERSION = '1';
+const s_TIMEOUT = 10000;      // 10000 milliseconds
 
 const s_STR_EVENT_ADDED = 'ddp:added';
 const s_STR_EVENT_CHANGED = 'ddp:changed';
@@ -185,18 +186,25 @@ export default class DDP extends TyphonEvents
     *
     * @param {string}   name - name of method
     * @param {Array<*>} params - optional array of EJSON items (parameters to the method)
+    * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @param {object}   randomSeed - optional JSON value (an arbitrary client-determined seed for pseudo-random
     *                                generators)
     * @returns {Promise}
     */
-   method(name, params, randomSeed)
+   method(name, params, timeout = s_TIMEOUT, randomSeed)
    {
       const id = s_UNIQUE_ID();
 
       const promise = new Promise((resolve, reject) =>
       {
+         const timer = setTimeout(() =>
+         {
+            reject(`method - id: ${id}; name: ${name} timed out.`);
+         }, timeout);
+
          this.once(`${s_STR_EVENT_RESULT}${id}`, (msg) =>
          {
+            clearTimeout(timer);
             _.isUndefined(msg.error) ? resolve(msg) : reject(msg);
          }, this);
       });
@@ -211,22 +219,30 @@ export default class DDP extends TyphonEvents
     *
     * @param {string}   name - name of subscription
     * @param {object}   params - optional parameters
+    * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @returns {Promise}
     */
-   sub(name, params)
+   sub(name, params, timeout = s_TIMEOUT)
    {
       const id = s_UNIQUE_ID();
 
       const promise = new Promise((resolve, reject) =>
       {
+         const timer = setTimeout(() =>
+         {
+            reject(`sub - id: ${id}; name: ${name} timed out.`);
+         }, timeout);
+
          this.once(`${s_STR_EVENT_READY}${id}`, (msg) =>
          {
+            clearTimeout(timer);
             this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
             resolve(msg);
          }, this);
 
          this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =>
          {
+            clearTimeout(timer);
             this.off(`${s_STR_EVENT_READY}${id}`, this);
             reject(msg);
          }, this);
@@ -241,14 +257,21 @@ export default class DDP extends TyphonEvents
     * Sends a unsubscribe request.
     *
     * @param {string}   id - id of subscription
+    * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @returns {Promise}
     */
-   unsub(id)
+   unsub(id, timeout = s_TIMEOUT)
    {
       const promise = new Promise((resolve) =>
       {
+         const timer = setTimeout(() =>
+         {
+            reject(`unsub - id: ${id} timed out.`);
+         }, timeout);
+
          this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =>
          {
+            clearTimeout(timer);
             resolve(msg);
          }, this);
       });
