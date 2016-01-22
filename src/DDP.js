@@ -6,7 +6,6 @@ import Queue         from 'typhonjs-core-socket/src/Queue.js';
 import Socket        from 'typhonjs-core-socket/src/Socket.js';
 
 const s_DDP_VERSION = '1';
-const s_TIMEOUT = 10000;      // 10000 milliseconds
 
 const s_STR_EVENT_ADDED = 'ddp:added';
 const s_STR_EVENT_CHANGED = 'ddp:changed';
@@ -38,12 +37,18 @@ export default class DDP extends TyphonEvents
     * Instantiates the DDP protocol handler.
     *
     * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -> setSocketOptions
+    * ```
     * (string)   host - host name / port.
     * (boolean)  ssl - (optional) Indicates if an SSL connection is requested; default (false).
     * (object)   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
     * (boolean)  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
     * (boolean)  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
+    * (integer)  messageTimeout - (optional) Indicates a timeout for message responses; default (10000) milliseconds.
     * (integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
+    * (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
+    * (string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
+    * (string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).
+    * ```
     */
    constructor(socketOptions = {})
    {
@@ -65,10 +70,7 @@ export default class DDP extends TyphonEvents
          else { return false; }
       });
 
-      this._params =
-      {
-         socketOptions
-      };
+      this._params = { socketOptions };
 
       /**
        * Defines the socket.
@@ -191,12 +193,28 @@ export default class DDP extends TyphonEvents
     *                                generators)
     * @returns {Promise}
     */
-   method(name, params, timeout = s_TIMEOUT, randomSeed)
+   method(name, params, timeout = this.socketOptions.messageTimeout, randomSeed)
    {
       const id = s_UNIQUE_ID();
 
       const promise = new Promise((resolve, reject) =>
       {
+         // Validate parameters
+         if (!_.isString(name))
+         {
+            reject('method - error: name is not a string.');
+         }
+
+         if (_.isDefined(params) && !Array.isArray(params))
+         {
+            reject('method - error: params is not an array.');
+         }
+
+         if (!Number.isInteger(timeout) || timeout < 0)
+         {
+            reject('method - error: timeout is not an integer or is less than 0.');
+         }
+
          // Provides a time out to reject request and unregister listeners.
          const timer = setTimeout(() =>
          {
@@ -220,16 +238,32 @@ export default class DDP extends TyphonEvents
     * Sends a subscription request.
     *
     * @param {string}   name - name of subscription
-    * @param {object}   params - optional parameters
+    * @param {Array<*>} params - optional array of EJSON items (parameters to the method)
     * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @returns {Promise}
     */
-   sub(name, params, timeout = s_TIMEOUT)
+   sub(name, params, timeout = this.socketOptions.messageTimeout)
    {
       const id = s_UNIQUE_ID();
 
       const promise = new Promise((resolve, reject) =>
       {
+         // Validate parameters
+         if (!_.isString(name))
+         {
+            reject('sub - error: name is not a string.');
+         }
+
+         if (_.isDefined(params) && !Array.isArray(params))
+         {
+            reject('sub - error: params is not an array.');
+         }
+
+         if (!Number.isInteger(timeout) || timeout < 0)
+         {
+            reject('sub - error: timeout is not an integer or is less than 0.');
+         }
+
          // Provides a time out to reject request and unregister listeners.
          const timer = setTimeout(() =>
          {
@@ -265,10 +299,21 @@ export default class DDP extends TyphonEvents
     * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @returns {Promise}
     */
-   unsub(id, timeout = s_TIMEOUT)
+   unsub(id, timeout = this.socketOptions.messageTimeout)
    {
       const promise = new Promise((resolve, reject) =>
       {
+         // Validate parameters
+         if (!_.isString(id))
+         {
+            reject('unsub - error: id is not a string.');
+         }
+
+         if (!Number.isInteger(timeout) || timeout < 0)
+         {
+            reject('unsub - error: timeout is not an integer or is less than 0.');
+         }
+
          // Provides a time out to reject request and unregister listeners.
          const timer = setTimeout(() =>
          {
