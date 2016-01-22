@@ -205,7 +205,7 @@ export default class DDP extends TyphonEvents
             reject('method - error: name is not a string.');
          }
 
-         if (_.isDefined(params) && !Array.isArray(params))
+         if (!_.isUndefined(params) && !Array.isArray(params))
          {
             reject('method - error: params is not an array.');
          }
@@ -254,7 +254,7 @@ export default class DDP extends TyphonEvents
             reject('sub - error: name is not a string.');
          }
 
-         if (_.isDefined(params) && !Array.isArray(params))
+         if (!_.isUndefined(params) && !Array.isArray(params))
          {
             reject('sub - error: params is not an array.');
          }
