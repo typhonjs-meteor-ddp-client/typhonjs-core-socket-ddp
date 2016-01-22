@@ -48,6 +48,9 @@ export default class DDP extends TyphonEvents
     * (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
     * (string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
     * (string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).
+    * (function) socketIntercept - (optional) Provides an intercept function for in / out messages; default (undefined).
+    *                              When invoked three parameters are passed: (string) message type, (*) message data,
+    *                              (object) parsed JSON object.
     * ```
     */
    constructor(socketOptions = {})
