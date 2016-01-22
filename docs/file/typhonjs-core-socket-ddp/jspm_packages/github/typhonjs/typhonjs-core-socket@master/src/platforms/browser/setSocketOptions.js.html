@@ -69,6 +69,9 @@ const s_DEFAULT_SSL = false;
  * (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
  * (string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
  * (string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).
+ * (function) socketIntercept - (optional) Provides an intercept function for in / out messages; default (undefined).
+ *                              When invoked three parameters are passed: (string) message type, (*) message data,
+ *                              (object) parsed JSON object.
  * ```
  * @return {object}
  */
@@ -119,6 +122,11 @@ export default function setSocketOptions(params = {})
       throw new TypeError(&apos;setSocketOptions = `params.reconnectInterval` is not an integer or &lt; 0.&apos;);
    }
 
+   if (typeof params.socketIntercept !== &apos;undefined&apos; &amp;&amp; typeof params.socketIntercept !== &apos;function&apos;)
+   {
+      throw new TypeError(&apos;setSocketOptions = `params.socketIntercept` is not a function.&apos;);
+   }
+
    const socketOptions = {};
 
    // If SockJS is available, use it, otherwise, use WebSocket. Note: SockJS is required for IE9 support
@@ -143,6 +151,7 @@ export default function setSocketOptions(params = {})
       socketOptions.autoReconnect = params.autoReconnect;
       socketOptions.messageTimeout = params.messageTimeout;
       socketOptions.reconnectInterval = params.reconnectInterval;
+      socketOptions.socketIntercept = params.socketIntercept;
       /* eslint-enable no-undef */
    }
    else
@@ -165,6 +174,7 @@ export default function setSocketOptions(params = {})
       socketOptions.autoReconnect = params.autoReconnect;
       socketOptions.messageTimeout = params.messageTimeout;
       socketOptions.reconnectInterval = params.reconnectInterval;
+      socketOptions.socketIntercept = params.socketIntercept;
 
       // Optionally set params.protocol if it exists.
       if (typeof params.protocol === &apos;string&apos;)

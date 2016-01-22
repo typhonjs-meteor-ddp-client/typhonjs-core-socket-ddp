@@ -143,11 +143,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber31">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber28">typhonjs-core-socket/src/platforms/browser/setSocketOptions.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber31">typhonjs-core-socket/src/platforms/browser/setSocketOptions.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Provides a platform specific (Browser) function to set socket options.</p>
@@ -177,7 +177,10 @@
 (integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
 (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
 (string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
-(string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).</code>
+(string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).
+(function) socketIntercept - (optional) Provides an intercept function for in / out messages; default (undefined).
+                             When invoked three parameters are passed: (string) message type, (*) message data,
+                             (object) parsed JSON object.</code>
 </code></pre></td>
     </tr>
 </tbody>
@@ -221,11 +224,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber30">source</a></span></span>
+      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber30">typhonjs-core-socket/src/platforms/node/setSocketOptions.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber33">typhonjs-core-socket/src/platforms/node/setSocketOptions.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Provides a platform specific (Node) function to set socket options.</p>
@@ -255,7 +258,10 @@
 (integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
 (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
 (string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
-(string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).</code>
+(string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).
+(function) socketIntercept - (optional) Provides an intercept function for in / out messages; default (undefined).
+                             When invoked three parameters are passed: (string) message type, (*) message data,
+                             (object) parsed JSON object.</code>
 </code></pre></td>
     </tr>
 </tbody>
@@ -299,11 +305,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html#lineNumber21">source</a></span></span>
+      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html#lineNumber24">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import validateSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html#lineNumber21">typhonjs-core-socket/src/validateSocketOptions.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import validateSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html#lineNumber24">typhonjs-core-socket/src/validateSocketOptions.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Provides a validation function to verify socket options.</p>
@@ -333,7 +339,10 @@
 (boolean)  autoReconnect - Indicates if socket should reconnect on socket closed; default (true).
 (integer)  messageTimeout - Indicates a timeout for message responses; default (10000) milliseconds.
 (integer)  reconnectInterval - Indicates socket reconnect inteveral; default (10000) milliseconds.
-(string)   protocol - (optional) Defines the websocket protocol; default (undefined).</code>
+(string)   protocol - (optional) Defines the websocket protocol; default (undefined).
+(function) socketIntercept - (optional) Provides an intercept function for in / out messages; default (undefined).
+                             When invoked three parameters are passed: (string) message type, (*) message data,
+                             (object) parsed JSON object.</code>
 </code></pre></td>
     </tr>
 </tbody>
