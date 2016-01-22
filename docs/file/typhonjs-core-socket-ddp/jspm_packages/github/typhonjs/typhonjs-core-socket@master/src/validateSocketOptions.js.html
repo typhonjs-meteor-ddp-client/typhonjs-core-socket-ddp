@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../../../../">
+  <title data-ice="title">typhonjs-core-socket/src/validateSocketOptions.js | typhonjs-core-socket-ddp API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/typhonjs-meteor/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/src/DDP.js~DDP.html">DDP</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-backbone-events/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-events@master/src/Events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-events@master/src/TyphonEvents.js~TyphonEvents.html">TyphonEvents</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Queue.js~Queue.html">Queue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html">Socket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validateSocketOptions">validateSocketOptions</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/browser</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/node</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">typhonjs-core-socket/src/validateSocketOptions.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
+
+/**
+ * Provides a validation function to verify socket options.
+ *
+ * @param {object}   params - Defines an object hash of required and optional parameters including the following:
+ * ```
+ * (string)   type - Type of socket connection; either &apos;sockjs&apos; or &apos;websocket&apos;.
+ * (string)   host - host name / port.
+ * (boolean)  ssl - Indicates if an SSL connection is requested; default (false).
+ * (string)   path - Defines the path of protocol; default (`websocket` or `sockjs`).
+ * (object)   serializer - An instance of an object which conforms to JSON for serialization; default (JSON).
+ * (boolean)  autoConnect - Indicates if socket should connect on construction; default (true).
+ * (boolean)  autoReconnect - Indicates if socket should reconnect on socket closed; default (true).
+ * (integer)  messageTimeout - Indicates a timeout for message responses; default (10000) milliseconds.
+ * (integer)  reconnectInterval - Indicates socket reconnect inteveral; default (10000) milliseconds.
+ * (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
+ * (function) socketIntercept - (optional) Provides an intercept function for in / out messages; default (undefined).
+ *                              When invoked three parameters are passed: (string) message type, (*) message data,
+ *                              (object) parsed JSON object.
+ * ```
+ * @return {boolean|TypeError}
+ */
+export default function validateSocketOptions(params = {})
+{
+   if (typeof params.host !== &apos;string&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.host` is not a string.&apos;);
+   }
+
+   if (typeof params.ssl !== &apos;boolean&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.ssl` is not a boolean.&apos;);
+   }
+
+   if (typeof params.serializer !== &apos;object&apos; || typeof params.serializer.stringify !== &apos;function&apos; ||
+    typeof params.serializer.parse !== &apos;function&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `serializer` does not conform to the JSON API.&apos;);
+   }
+
+   if (typeof params.autoConnect !== &apos;boolean&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.autoConnect` is not a boolean.&apos;);
+   }
+
+   if (typeof params.autoReconnect !== &apos;boolean&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.autoReconnect` is not a boolean.&apos;);
+   }
+
+   if (!Number.isInteger(params.messageTimeout) || params.messageTimeout &lt; 0)
+   {
+      throw new TypeError(&apos;validateSocketOptions = `params.messageTimeout` is not an integer or &lt; 0.&apos;);
+   }
+
+   if (!Number.isInteger(params.reconnectInterval) &amp;&amp; params.reconnectInterval &lt; 0)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.reconnectInterval` is not an integer or &lt; 0.&apos;);
+   }
+
+   if (typeof params.socketIntercept !== &apos;undefined&apos; &amp;&amp; typeof params.socketIntercept !== &apos;function&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions = `params.socketIntercept` is not a function.&apos;);
+   }
+
+   if (typeof params.SocketConstructor !== &apos;function&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.SocketConstructor` is not an constructor function.&apos;);
+   }
+
+   if (typeof params.endpoint !== &apos;string&apos;)
+   {
+      throw new Error(&apos;ctor - `options.endpoint` is missing or not a string.&apos;);
+   }
+
+   if (typeof params.type !== &apos;string&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.type` is not a string.&apos;);
+   }
+
+   if (typeof params.path !== &apos;string&apos;)
+   {
+      throw new TypeError(&apos;validateSocketOptions - `params.path` is not a string.&apos;);
+   }
+
+   switch (params.type)
+   {
+      case &apos;websocket&apos;:
+         if (params.protocol &amp;&amp; typeof params.protocol !== &apos;string&apos;)
+         {
+            throw new TypeError(&apos;validateSocketOptions - `params.protocol` is not a string.&apos;);
+         }
+         break;
+
+      default:
+         throw new TypeError(&apos;validateSocketOptions - `params.type` is not valid; must be `sockjs` or `websocket`.&apos;);
+   }
+
+   return true;
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
