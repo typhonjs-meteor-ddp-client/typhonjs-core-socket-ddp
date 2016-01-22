@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/typhonjs/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
+  <a data-ice="repoURL" href="https://github.com/typhonjs-meteor/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -37,6 +37,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-events@master/src/TyphonEvents.js~TyphonEvents.html">TyphonEvents</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Queue.js~Queue.html">Queue</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html">Socket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validateSocketOptions">validateSocketOptions</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/browser</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/node</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
 </ul>
@@ -53,8 +54,6 @@ import Socket        from &apos;typhonjs-core-socket/src/Socket.js&apos;;
 
 const s_DDP_VERSION = &apos;1&apos;;
 
-const s_RECONNECT_INTERVAL = 10000;
-
 const s_STR_EVENT_ADDED = &apos;ddp:added&apos;;
 const s_STR_EVENT_CHANGED = &apos;ddp:changed&apos;;
 const s_STR_EVENT_CONNECTED = &apos;ddp:connected&apos;;
@@ -63,7 +62,7 @@ const s_STR_EVENT_ERROR = &apos;ddp:error&apos;;
 const s_STR_EVENT_NOSUB = &apos;ddp:sub:nosub:&apos;;
 const s_STR_EVENT_READY = &apos;ddp:sub:ready:&apos;;
 const s_STR_EVENT_REMOVED = &apos;ddp:removed&apos;;
-const s_STR_EVENT_RESULT = &apos;ddp:result&apos;;
+const s_STR_EVENT_RESULT = &apos;ddp:result:&apos;;
 const s_STR_EVENT_UPDATED = &apos;ddp:updated&apos;;
 
 /**
@@ -85,10 +84,20 @@ export default class DDP extends TyphonEvents
     * Instantiates the DDP protocol handler.
     *
     * @param {object}   socketOptions - Object hash that is defined by typhonjs-core-socket -&gt; setSocketOptions
-    * @param {boolean}  autoConnect - Indicates that DDP will attempt to connect on construction.
-    * @param {boolean}  autoReconnect - Indicates that DDP will attempt to reconnection on connection lost.
+    * ```
+    * (string)   host - host name / port.
+    * (boolean)  ssl - (optional) Indicates if an SSL connection is requested; default (false).
+    * (object)   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
+    * (boolean)  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
+    * (boolean)  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
+    * (integer)  messageTimeout - (optional) Indicates a timeout for message responses; default (10000) milliseconds.
+    * (integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
+    * (string)   protocol - (optional) Defines the websocket protocol; default (undefined).
+    * (string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
+    * (string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).
+    * ```
     */
-   constructor(socketOptions, autoConnect = true, autoReconnect = true)
+   constructor(socketOptions = {})
    {
       super();
 
@@ -108,23 +117,13 @@ export default class DDP extends TyphonEvents
          else { return false; }
       });
 
-      this._params =
-      {
-         autoConnect,
-         autoReconnect,
-         socketOptions
-      };
+      this._params = { socketOptions };
 
       /**
        * Defines the socket.
        * @type {Object}
        */
       this.socket = new Socket(socketOptions);
-
-      if (autoConnect)
-      {
-         this.socket.connect();
-      }
 
       this._init();
    }
@@ -136,7 +135,6 @@ export default class DDP extends TyphonEvents
     */
    connect()
    {
-      this.socket.connect.bind(this.socket);
       this.socket.connect();
    }
 
@@ -171,12 +169,6 @@ export default class DDP extends TyphonEvents
          this.status = &apos;disconnected&apos;;
          this.messageQueue.empty();
          super.triggerDefer(s_STR_EVENT_DISCONNECTED, this.socketOptions);
-
-         if (this._params.autoReconnect)
-         {
-            // Schedule a reconnection
-            setTimeout(this.socket.connect.bind(this.socket), s_RECONNECT_INTERVAL);
-         }
       });
 
       this.socket.on(&apos;socket:message:in&apos;, (message) =&gt;
@@ -228,7 +220,7 @@ export default class DDP extends TyphonEvents
                break;
 
             case &apos;result&apos;:
-               super.triggerDefer(s_STR_EVENT_RESULT, message);
+               super.triggerDefer(`${s_STR_EVENT_RESULT}${message.id}`, message);
                break;
 
             case &apos;updated&apos;:
@@ -242,39 +234,101 @@ export default class DDP extends TyphonEvents
     * Invokes a remote method on the server.
     *
     * @param {string}   name - name of method
-    * @param {object}   params - optional parameters
-    * @returns {string}
+    * @param {Array&lt;*&gt;} params - optional array of EJSON items (parameters to the method)
+    * @param {number}   timeout - optional timeout in milliseconds (default 10000)
+    * @param {object}   randomSeed - optional JSON value (an arbitrary client-determined seed for pseudo-random
+    *                                generators)
+    * @returns {Promise}
     */
-   method(name, params)
+   method(name, params, timeout = this.socketOptions.messageTimeout, randomSeed)
    {
       const id = s_UNIQUE_ID();
 
-      this.messageQueue.push({ msg: &apos;method&apos;, id, name, params });
+      const promise = new Promise((resolve, reject) =&gt;
+      {
+         // Validate parameters
+         if (!_.isString(name))
+         {
+            reject(&apos;method - error: name is not a string.&apos;);
+         }
 
-      return id;
+         if (!_.isUndefined(params) &amp;&amp; !Array.isArray(params))
+         {
+            reject(&apos;method - error: params is not an array.&apos;);
+         }
+
+         if (!Number.isInteger(timeout) || timeout &lt; 0)
+         {
+            reject(&apos;method - error: timeout is not an integer or is less than 0.&apos;);
+         }
+
+         // Provides a time out to reject request and unregister listeners.
+         const timer = setTimeout(() =&gt;
+         {
+            this.off(`${s_STR_EVENT_RESULT}${id}`, this);
+            reject(`method - id: ${id}; name: ${name} timed out.`);
+         }, timeout);
+
+         this.once(`${s_STR_EVENT_RESULT}${id}`, (msg) =&gt;
+         {
+            clearTimeout(timer);
+            _.isUndefined(msg.error) ? resolve(msg) : reject(msg);
+         }, this);
+      });
+
+      this.messageQueue.push({ msg: &apos;method&apos;, id, method: name, params, randomSeed });
+
+      return promise;
    }
 
    /**
     * Sends a subscription request.
     *
     * @param {string}   name - name of subscription
-    * @param {object}   params - optional parameters
+    * @param {Array&lt;*&gt;} params - optional array of EJSON items (parameters to the method)
+    * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @returns {Promise}
     */
-   sub(name, params)
+   sub(name, params, timeout = this.socketOptions.messageTimeout)
    {
       const id = s_UNIQUE_ID();
 
       const promise = new Promise((resolve, reject) =&gt;
       {
+         // Validate parameters
+         if (!_.isString(name))
+         {
+            reject(&apos;sub - error: name is not a string.&apos;);
+         }
+
+         if (!_.isUndefined(params) &amp;&amp; !Array.isArray(params))
+         {
+            reject(&apos;sub - error: params is not an array.&apos;);
+         }
+
+         if (!Number.isInteger(timeout) || timeout &lt; 0)
+         {
+            reject(&apos;sub - error: timeout is not an integer or is less than 0.&apos;);
+         }
+
+         // Provides a time out to reject request and unregister listeners.
+         const timer = setTimeout(() =&gt;
+         {
+            this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
+            this.off(`${s_STR_EVENT_READY}${id}`, this);
+            reject(`sub - id: ${id}; name: ${name} timed out.`);
+         }, timeout);
+
          this.once(`${s_STR_EVENT_READY}${id}`, (msg) =&gt;
          {
+            clearTimeout(timer);
             this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
             resolve(msg);
          }, this);
 
          this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =&gt;
          {
+            clearTimeout(timer);
             this.off(`${s_STR_EVENT_READY}${id}`, this);
             reject(msg);
          }, this);
@@ -289,14 +343,34 @@ export default class DDP extends TyphonEvents
     * Sends a unsubscribe request.
     *
     * @param {string}   id - id of subscription
+    * @param {number}   timeout - optional timeout in milliseconds (default 10000)
     * @returns {Promise}
     */
-   unsub(id)
+   unsub(id, timeout = this.socketOptions.messageTimeout)
    {
-      const promise = new Promise((resolve) =&gt;
+      const promise = new Promise((resolve, reject) =&gt;
       {
+         // Validate parameters
+         if (!_.isString(id))
+         {
+            reject(&apos;unsub - error: id is not a string.&apos;);
+         }
+
+         if (!Number.isInteger(timeout) || timeout &lt; 0)
+         {
+            reject(&apos;unsub - error: timeout is not an integer or is less than 0.&apos;);
+         }
+
+         // Provides a time out to reject request and unregister listeners.
+         const timer = setTimeout(() =&gt;
+         {
+            this.off(`${s_STR_EVENT_NOSUB}${id}`, this);
+            reject(`unsub - id: ${id} timed out.`);
+         }, timeout);
+
          this.once(`${s_STR_EVENT_NOSUB}${id}`, (msg) =&gt;
          {
+            clearTimeout(timer);
             resolve(msg);
          }, this);
       });

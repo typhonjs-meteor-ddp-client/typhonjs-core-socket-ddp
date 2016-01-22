@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/typhonjs/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
+  <a data-ice="repoURL" href="https://github.com/typhonjs-meteor/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -37,6 +37,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-events@master/src/TyphonEvents.js~TyphonEvents.html">TyphonEvents</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Queue.js~Queue.html">Queue</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html">Socket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validateSocketOptions">validateSocketOptions</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/browser</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/node</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
 </ul>
@@ -59,13 +60,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span><span data-ice="signature">(host: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ssl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, serializer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, websocketPath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, sockjsPath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+           <span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Provides a platform specific function to set socket options.</p>
+        <div data-ice="description"><p>Provides a platform specific (Browser) function to set socket options.</p>
 </div>
       </div>
     </td>
@@ -85,13 +86,39 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span><span data-ice="signature">(host: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ssl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, serializer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, websocketPath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+           <span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>TODO: Presently this is an unfinished implementation pending better JSPM support for NPM modules for Node consumption.</p>
+        <div data-ice="description"><p>Provides a platform specific (Node) function to set socket options.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="function/index.html#static-function-validateSocketOptions">validateSocketOptions</a></span></span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Provides a validation function to verify socket options.</p>
 </div>
       </div>
     </td>
@@ -112,18 +139,18 @@
     
     
     
-    <span data-ice="name">setSocketOptions</span><span data-ice="signature">(host: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ssl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, serializer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, websocketPath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, sockjsPath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+    <span data-ice="name">setSocketOptions</span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber13">typhonjs-core-socket/src/platforms/browser/setSocketOptions.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setSocketOptions.js.html#lineNumber28">typhonjs-core-socket/src/platforms/browser/setSocketOptions.js</a></span>&apos;</code></pre></div>
   
   
-  <div data-ice="description"><p>Provides a platform specific function to set socket options.</p>
+  <div data-ice="description"><p>Provides a platform specific (Browser) function to set socket options.</p>
 </div>
 
   
@@ -137,39 +164,21 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">host</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>host name / port.</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">ssl</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Indicates if an SSL connection is requested.</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">serializer</td>
+      <td data-ice="name" data-depth="0">params</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>An instance of an object which conforms to JSON for serialization; default (JSON).</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">websocketPath</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Defines the websocket path; default is <code>websocket</code>.</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">sockjsPath</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Defines the sockjs path; default is <code>sockjs</code>.</p>
-</td>
+      <td data-ice="description"><p>Defines an object hash of required and optional parameters including the following:</p>
+<pre><code><code class="source-code prettyprint">(string)   host - host name / port.
+(boolean)  ssl - (optional) Indicates if an SSL connection is requested; default (false).
+(object)   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
+(boolean)  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
+(boolean)  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
+(integer)  messageTimeout - (optional) Indicates a timeout for message responses; default (10000) milliseconds.
+(integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
+(string)   protocol - (optional) Defines the websocket protocol; default (undefined).
+(string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
+(string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).</code>
+</code></pre></td>
     </tr>
 </tbody>
   </table>
@@ -208,19 +217,18 @@
     
     
     
-    <span data-ice="name">setSocketOptions</span><span data-ice="signature">(host: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ssl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, serializer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, websocketPath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
+    <span data-ice="name">setSocketOptions</span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber16">typhonjs-core-socket/src/platforms/node/setSocketOptions.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import setSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html#lineNumber30">typhonjs-core-socket/src/platforms/node/setSocketOptions.js</a></span>&apos;</code></pre></div>
   
   
-  <div data-ice="description"><p>TODO: Presently this is an unfinished implementation pending better JSPM support for NPM modules for Node consumption.</p>
-<p>Provides a platform specific function to set socket options.</p>
+  <div data-ice="description"><p>Provides a platform specific (Node) function to set socket options.</p>
 </div>
 
   
@@ -234,32 +242,21 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">host</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>host name / port.</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">ssl</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Indicates if an SSL connection is requested.</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">serializer</td>
+      <td data-ice="name" data-depth="0">params</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>An instance of an object which conforms to JSON for serialization; default (JSON).</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">websocketPath</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Defines the websocket path; default is <code>websocket</code>.</p>
-</td>
+      <td data-ice="description"><p>Defines an object hash of required and optional parameters including the following:</p>
+<pre><code><code class="source-code prettyprint">(string)   host - host name / port.
+(boolean)  ssl - (optional) Indicates if an SSL connection is requested; default (false).
+(object)   serializer - (optional) An instance of an object which conforms to JSON for serialization; default (JSON).
+(boolean)  autoConnect - (optional) Indicates if socket should connect on construction; default (true).
+(boolean)  autoReconnect - (optional) Indicates if socket should reconnect on socket closed; default (true).
+(integer)  messageTimeout - (optional) Indicates a timeout for message responses; default (10000) milliseconds.
+(integer)  reconnectInterval - (optional) Indicates socket reconnect inteveral; default (10000) milliseconds.
+(string)   protocol - (optional) Defines the websocket protocol; default (undefined).
+(string)   websocketPath - (optional) Defines the websocket path; default (`websocket`).
+(string)   sockjsPath - (optional) Defines the sockjs path; default (`sockjs`).</code>
+</code></pre></td>
     </tr>
 </tbody>
   </table>
@@ -271,6 +268,84 @@
     <table>
       <tr>
         <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-validateSocketOptions">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">validateSocketOptions</span><span data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html#lineNumber21">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import validateSocketOptions from &apos;<span><a href="file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html#lineNumber21">typhonjs-core-socket/src/validateSocketOptions.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Provides a validation function to verify socket options.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">params</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Defines an object hash of required and optional parameters including the following:</p>
+<pre><code><code class="source-code prettyprint">(string)   type - Type of socket connection; either &apos;sockjs&apos; or &apos;websocket&apos;.
+(string)   host - host name / port.
+(boolean)  ssl - Indicates if an SSL connection is requested; default (false).
+(string)   path - Defines the path of protocol; default (`websocket` or `sockjs`).
+(object)   serializer - An instance of an object which conforms to JSON for serialization; default (JSON).
+(boolean)  autoConnect - Indicates if socket should connect on construction; default (true).
+(boolean)  autoReconnect - Indicates if socket should reconnect on socket closed; default (true).
+(integer)  messageTimeout - Indicates a timeout for message responses; default (10000) milliseconds.
+(integer)  reconnectInterval - Indicates socket reconnect inteveral; default (10000) milliseconds.
+(string)   protocol - (optional) Defines the websocket protocol; default (undefined).</code>
+</code></pre></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a></span></td>
         
       </tr>
     </table>

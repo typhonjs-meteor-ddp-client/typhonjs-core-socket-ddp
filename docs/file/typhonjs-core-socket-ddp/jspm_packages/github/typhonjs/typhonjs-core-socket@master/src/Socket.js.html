@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/typhonjs/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
+  <a data-ice="repoURL" href="https://github.com/typhonjs-meteor/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -37,6 +37,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-backbone-events@master/src/TyphonEvents.js~TyphonEvents.html">TyphonEvents</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Queue.js~Queue.html">Queue</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html">Socket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validateSocketOptions">validateSocketOptions</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/browser</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
 <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">typhonjs-core-socket/src/platforms/node</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setSocketOptions">setSocketOptions</a></span></span></li>
 </ul>
@@ -46,7 +47,9 @@
 <div class="content" data-ice="content"><h1 data-ice="title">typhonjs-core-socket/src/Socket.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;;
 
-import TyphonEvents from &apos;typhonjs-core-backbone-events/src/TyphonEvents.js&apos;;
+import TyphonEvents           from &apos;typhonjs-core-backbone-events/src/TyphonEvents.js&apos;;
+
+import validateSocketOptions  from &apos;./validateSocketOptions.js&apos;;
 
 const s_STR_EVENT_CLOSE = &apos;socket:close&apos;;
 const s_STR_EVENT_ERROR = &apos;socket:error&apos;;
@@ -62,56 +65,27 @@ export default class Socket extends TyphonEvents
    /**
     * Creates the socket.
     *
-    * @param {object}   options - The options hash generated from `setSocketOptions` defining the socket configuration.
+    * @param {object}   socketOptions - The options hash generated from `setSocketOptions` defining the socket
+    *                                   configuration.
     */
-   constructor(options = {})
+   constructor(socketOptions = {})
    {
       super();
 
-      if (typeof options !== &apos;object&apos;)
+      if (validateSocketOptions(socketOptions))
       {
-         throw new Error(&apos;ctor - `options` is not an object / hash.&apos;);
+         /**
+          * The socket options parameters.
+          * @type {object}
+          */
+         this._params = socketOptions;
       }
 
-      if (typeof options.SocketConstructor !== &apos;function&apos;)
+      // Potentially schedule auto connection
+      if (this._params.autoConnect)
       {
-         throw new Error(&apos;ctor - `options.SocketConstructor` is missing or not a constructor function.&apos;);
+         setTimeout(this.connect.bind(this), 0);
       }
-
-      if (typeof options.endpoint !== &apos;string&apos;)
-      {
-         throw new Error(&apos;ctor - `options.endpoint` is missing or not a string.&apos;);
-      }
-
-      /**
-       * The socket constructor.
-       * @type {Function}
-       */
-      this.SocketConstructor = options.SocketConstructor;
-
-      /**
-       * Endpoint to connect.
-       * @type {string}
-       */
-      this.endpoint = options.endpoint;
-
-      /**
-       * Protocol to connect.
-       * @type {string}
-       */
-      this.protocol = options.protocol || undefined;
-
-      /**
-       * Defines the JSON compatible serializer or defaults to JSON.
-       * @type {Object}
-       */
-      this.serializer = options.serializer || JSON;
-
-      /**
-       * Defines the type of socket connection (&apos;websocket&apos; or &apos;sockjs&apos;)
-       * @type {string}
-       */
-      this.type = options.type || &apos;unknown&apos;;
    }
 
    /**
@@ -122,30 +96,39 @@ export default class Socket extends TyphonEvents
     */
    connect()
    {
-      switch(this.type)
+      switch(this._params.type)
       {
          case &apos;sockjs&apos;:
             /**
              * The raw socket.
              * @type {Object}
              */
-            this.rawSocket = new this.SocketConstructor(this.endpoint);
+            this.rawSocket = new this._params.SocketConstructor(this._params.endpoint);
             break;
          case &apos;websocket&apos;:
-            if (typeof this.protocol !== &apos;undefined&apos;)
+            if (typeof this._params.protocol !== &apos;undefined&apos;)
             {
-               this.rawSocket = new this.SocketConstructor(this.endpoint, this.protocol);
+               this.rawSocket = new this._params.SocketConstructor(this._params.endpoint, this._params.protocol);
             }
             else
             {
-               this.rawSocket = new this.SocketConstructor(this.endpoint);
+               this.rawSocket = new this._params.SocketConstructor(this._params.endpoint);
             }
             break;
          default:
-            throw new Error(`connect - unknown &apos;type&apos;: ${this.type}`);
+            throw new Error(`connect - unknown &apos;type&apos;: ${this._params.type}`);
       }
 
-      this.rawSocket.onclose = () =&gt; { super.triggerDefer(s_STR_EVENT_CLOSE); };
+      this.rawSocket.onclose = () =&gt;
+      {
+         super.triggerDefer(s_STR_EVENT_CLOSE);
+
+         if (this._params.autoReconnect)
+         {
+            // Schedule a reconnection
+            setTimeout(this.connect.bind(this), this._params.reconnectInterval);
+         }
+      };
 
       this.rawSocket.onerror = (error) =&gt; { super.triggerDefer(s_STR_EVENT_ERROR, error); };
 
@@ -153,13 +136,13 @@ export default class Socket extends TyphonEvents
       {
          let object;
 
-         try { object = this.serializer.parse(message.data); }
+         try { object = this._params.serializer.parse(message.data); }
          catch(ignore) { return; /* ignore */ }
 
          // If there is an attached socket intercept function then invoke it.
-         if (this._socketInterceptFunction)
+         if (this._socketIntercept)
          {
-            this._socketInterceptFunction(s_STR_EVENT_MESSAGE_IN, message.data, object);
+            this._socketIntercept(s_STR_EVENT_MESSAGE_IN, message.data, object);
          }
 
          // Outside the try-catch block as it must only catch JSON parsing
@@ -185,6 +168,16 @@ export default class Socket extends TyphonEvents
    }
 
    /**
+    * Returns any associated socket intercept function.
+    *
+    * @returns {function}
+    */
+   getSocketIntercept()
+   {
+      return this._socketIntercept;
+   }
+
+   /**
     * Sends an object over the socket.
     *
     * @param {*}  object - The object to send.
@@ -192,17 +185,32 @@ export default class Socket extends TyphonEvents
     */
    send(object)
    {
-      const message = this.serializer.stringify(object);
+      const message = this._params.serializer.stringify(object);
 
       // If there is an attached socket intercept function then invoke it.
-      if (this._socketInterceptFunction)
+      if (this._socketIntercept)
       {
-         this._socketInterceptFunction(s_STR_EVENT_MESSAGE_OUT, message, object);
+         this._socketIntercept(s_STR_EVENT_MESSAGE_OUT, message, object);
       }
 
       this.rawSocket.send(message);
 
       return this;
+   }
+
+   /**
+    * Sets the socket intercept function which is invoked when a message is sent or received.
+    *
+    * @param {function} interceptFunction - function that is invoked when a message is sent or received.
+    */
+   setSocketIntercept(interceptFunction)
+   {
+      if (typeof interceptFunction !== &apos;function&apos;)
+      {
+         throw new TypeError(`&apos;interceptFunction&apos; is not a &apos;function&apos;.`);
+      }
+
+      this._socketIntercept = interceptFunction;
    }
 }</code></pre>
 

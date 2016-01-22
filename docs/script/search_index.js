@@ -42,6 +42,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "typhonjs-core-socket/src/validatesocketoptions.js~validatesocketoptions",
+    "function/index.html#static-function-validateSocketOptions",
+    "<span>validateSocketOptions</span> <span class=\"search-result-import-path\">typhonjs-core-socket/src/validateSocketOptions.js</span>",
+    "function"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "external/index.html",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -534,12 +540,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#socketconstructor",
-    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-member-SocketConstructor",
-    "typhonjs-core-socket/src/Socket.js~Socket#SocketConstructor",
-    "member"
-  ],
-  [
     "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#connect",
     "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-method-connect",
     "typhonjs-core-socket/src/Socket.js~Socket#connect",
@@ -558,16 +558,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#endpoint",
-    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-member-endpoint",
-    "typhonjs-core-socket/src/Socket.js~Socket#endpoint",
-    "member"
-  ],
-  [
-    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#protocol",
-    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-member-protocol",
-    "typhonjs-core-socket/src/Socket.js~Socket#protocol",
-    "member"
+    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#getsocketintercept",
+    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-method-getSocketIntercept",
+    "typhonjs-core-socket/src/Socket.js~Socket#getSocketIntercept",
+    "method"
   ],
   [
     "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#rawsocket",
@@ -582,16 +576,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#serializer",
-    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-member-serializer",
-    "typhonjs-core-socket/src/Socket.js~Socket#serializer",
-    "member"
-  ],
-  [
-    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#type",
-    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-member-type",
-    "typhonjs-core-socket/src/Socket.js~Socket#type",
-    "member"
+    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/socket.js~socket#setsocketintercept",
+    "class/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/Socket.js~Socket.html#instance-method-setSocketIntercept",
+    "typhonjs-core-socket/src/Socket.js~Socket#setSocketIntercept",
+    "method"
   ],
   [
     "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/browser/setsocketoptions.js",
@@ -603,6 +591,12 @@ window.esdocSearchIndex = [
     "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setsocketoptions.js",
     "file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/platforms/node/setSocketOptions.js.html",
     "typhonjs-core-socket/src/platforms/node/setSocketOptions.js",
+    "file"
+  ],
+  [
+    "typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validatesocketoptions.js",
+    "file/typhonjs-core-socket-ddp/jspm_packages/github/typhonjs/typhonjs-core-socket@master/src/validateSocketOptions.js.html",
+    "typhonjs-core-socket/src/validateSocketOptions.js",
     "file"
   ],
   [
