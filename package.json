@@ -1,19 +1,22 @@
 {
   "name": "typhonjs-core-socket-ddp",
   "version": "0.1.0",
-  "homepage": "https://github.com/typhonjs-meteor/typhonjs-core-socket-ddp/",
+  "homepage": "https://github.com/typhonjs-meteor-ddp-client/typhonjs-core-socket-ddp/",
   "description": "Provides an ES6 Javascript DDP client.",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/typhonjs-meteor/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git"
+    "url": "https://github.com/typhonjs-meteor-ddp-client/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/typhonjs-meteor-ddp-client/typhonjs-core-socket-ddp/issues"
   },
   "jspm": {
     "main": "src/DDP.js",
     "dependencies": {
       "ejson": "npm:ejson@^2.1.2",
-      "typhonjs-core-backbone-events": "github:typhonjs/typhonjs-core-backbone-events@master",
-      "typhonjs-core-socket": "github:typhonjs/typhonjs-core-socket@master",
+      "typhonjs-core-backbone-events": "github:typhonjs-backbone/typhonjs-core-backbone-events@master",
+      "typhonjs-core-socket": "github:typhonjs-common/typhonjs-core-socket@master",
       "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
@@ -23,9 +26,10 @@
     }
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "jspm": "0.16.25",
-    "typhonjs-config-eslint": "^0.2.1",
-    "typhonjs-core-gulptasks": "^0.5.0"
+    "gulp": "^3.0.0",
+    "jspm": "^0.16.0",
+    "typhonjs-config-eslint": "^0.4.0",
+    "typhonjs-core-gulptasks": "^0.6.0",
+    "typhonjs-npm-build-test": "^0.1.0"
   }
 }
