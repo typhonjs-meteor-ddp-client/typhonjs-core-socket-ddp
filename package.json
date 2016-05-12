@@ -6,7 +6,7 @@
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/typhonjs-meteor-ddp-client/typhonjs-core-socket-ddp/typhonjs-core-socket-ddp.git"
+    "url": "https://github.com/typhonjs-meteor-ddp-client/typhonjs-core-socket-ddp.git"
   },
   "bugs": {
     "url": "https://github.com/typhonjs-meteor-ddp-client/typhonjs-core-socket-ddp/issues"
@@ -14,15 +14,15 @@
   "jspm": {
     "main": "src/DDP.js",
     "dependencies": {
-      "ejson": "npm:ejson@^2.1.2",
+      "ejson": "npm:ejson@^2.0.0",
       "typhonjs-core-backbone-events": "github:typhonjs-backbone/typhonjs-core-backbone-events@master",
       "typhonjs-core-socket": "github:typhonjs-common/typhonjs-core-socket@master",
-      "underscore": "npm:underscore@^1.8.3"
+      "underscore": "npm:underscore@^1.0.0"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@^5.8.35",
-      "babel-runtime": "npm:babel-runtime@^5.8.35",
-      "core-js": "npm:core-js@^1.2.6"
+      "babel": "npm:babel-core@^5.0.0",
+      "babel-runtime": "npm:babel-runtime@^5.0.0",
+      "core-js": "npm:core-js@^1.0.0"
     }
   },
   "devDependencies": {
